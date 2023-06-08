@@ -14,36 +14,28 @@ function submitForm(event) {
     }
   };
 
-  fetch('https://api.airtable.com/v0/appiGj2zOn44fGWxY/Mails', { // API documentation > AUTHENTICATION kısmından url'i bulabilirsin
+  fetch('https://api.airtable.com/v0/appiGj2zOn44fGWxY/Mails', {
     method: 'POST',
     headers: {
-      'Authorization': 'Bearer ' + config.apiKey, // Senin API key
+      'Authorization': 'Bearer ' + config.apiKey, 
       'Content-Type': 'application/json'
     },
-      body: JSON.stringify(data)
-    
+    body: JSON.stringify(data)
   })
-  .then(response => response.json())
-        .catch(error => console.error(error));
-    const customAlert = document.getElementById('custom_alert')
-setTimeout(() => {
-    
-customAlert.style.transform = "translateY(0)"
-customAlert.textContent = "You have been successfully added"
-setTimeout(() => {
-    customAlert.style.transform = "translateY(-500px)"
-    
-    
-}, 2000);
-}, 1000);
+    .then(response => response.json())
+    .then(() => {
+      // Reset the form after successful submission
+      form.reset();
 
+      // Show the success message
+      const customAlert = document.getElementById('custom_alert');
+      customAlert.style.transform = "translateY(0)";
+      customAlert.textContent = "You have been successfully added";
+
+      // Hide the success message after 2 seconds
+      setTimeout(() => {
+        customAlert.style.transform = "translateY(-500px)";
+      }, 2000);
+    })
+    .catch(error => console.error(error));
 }
-
-
-
-
-
-
-
-
-
